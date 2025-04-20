@@ -4,6 +4,7 @@ volumes:
   qdrant_storage:
   open-webui:
   flowise:
+  crawl4ai_storage:
   # caddy-data:
   # caddy-config:
   # valkey-data:
@@ -108,6 +109,35 @@ services:
       - 6333:6333
     volumes:
       - qdrant_storage:/qdrant/storage
+
+  crawl4ai:
+    build:
+      context: .
+      dockerfile: crawl4ai.Dockerfile
+    container_name: crawl4ai
+    restart: unless-stopped
+    ports:
+      - 11235:11235
+    environment:
+      - CRAWL4AI_DISABLE_AUTH=true
+      - CRAWL4AI_AUTH_ENABLED=false
+    volumes:
+      - crawl4ai_storage:/app/data
+      - /dev/shm:/dev/shm
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11235/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   # caddy:
   #   container_name: caddy

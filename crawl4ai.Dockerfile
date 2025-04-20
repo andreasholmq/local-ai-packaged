@@ -1,0 +1,13 @@
+FROM unclecode/crawl4ai:basic-amd64
+
+# Set environment variables to disable authentication
+ENV CRAWL4AI_DISABLE_AUTH=true
+ENV CRAWL4AI_AUTH_ENABLED=false
+ENV CRAWL4AI_API_TOKEN="test_token"
+ENV CRAWL4AI_REQUIRE_API_KEY=false
+ENV CRAWL4AI_AUTH_REQUIRED=false
+ENV CRAWL4AI_DISABLE_AUTHENTICATION=true
+ENV CRAWL4AI_ANONYMOUS_ACCESS=true
+
+# Expose the port
+EXPOSE 11235
