@@ -232,11 +232,22 @@ def main():
     start_supabase()
     
     # Give Supabase some time to initialize
-    print("Waiting for Supabase to initialize...")
-    time.sleep(10)
+    print("Waiting 5 seconds for Supabase to initialize...")
+    time.sleep(5)
     
     # Then start the local AI services
     start_local_ai(args.profile)
+    
+    print("\nAll services started successfully!")
+    print("\nAccess your services at the following URLs:")
+    print("- n8n: http://localhost:5678")
+    print("- Supabase: http://localhost:8000")
+    print("- Open WebUI: http://localhost:3000")
+    print("- Flowise: http://localhost:3001")
+    print("- Ollama API: http://localhost:11434")
+    print("- SearXNG: http://localhost:8080")
+    print("- Qdrant: http://localhost:6333")
+    print("\nTo stop all services, run: docker compose -p localai down")
 
 if __name__ == "__main__":
     main()
